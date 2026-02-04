@@ -8,7 +8,9 @@
       text-align: center;
       margin-top: 100px;
       background: #ffe6ea;
+      overflow: hidden; /* needed for hearts */
     }
+
     button {
       padding: 14px 26px;
       margin: 12px;
@@ -17,13 +19,35 @@
       border: none;
       cursor: pointer;
     }
+
     #yesBtn { background: #ff4d6d; color: white; }
     #noBtn { background: gray; color: white; position: absolute; }
+
     #coupon {
       display: none;
       margin-top: 30px;
       font-size: 20px;
       color: #d1004c;
+    }
+
+    /* 💖 FLOATING HEARTS */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 24px;
+      animation: floatUp 6s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+      }
     }
   </style>
 </head>
@@ -36,19 +60,16 @@
   <button id="noBtn" onmouseover="moveNo()">No 😜</button>
 
   <div id="coupon">
-  🎁 <strong>Myntra Gift Coupon</strong><br><br>
-
-  Coupon Code: <strong>LOVE2026</strong><br>
-  Valid till: 14 Feb ❤️<br><br>
-
-  🍽️ Candle Light Dinner date with me 💕<br>
-  💋 And everything of me once you finished your fast 😉
-</div>
-
+    🎁 <strong>Myntra Gift Coupon</strong><br><br>
+    Coupon Code: <strong>LOVE2026</strong><br>
+    Valid till: 14 Feb ❤️<br><br>
+    🍽️ Candle Light Dinner date with me 💕
+	💋 And everything of me once you finished your fast 😉
+  </div>
 
   <!-- 🎵 MUSIC -->
   <audio id="bgMusic" loop>
-    <source src="music.mp3.mp3" type="audio/mpeg">
+    <source src="music.mp3" type="audio/mpeg">
   </audio>
 
   <script>
@@ -66,6 +87,24 @@
       btn.style.left = Math.random() * 300 + "px";
       btn.style.top = Math.random() * 300 + "px";
     }
+
+    /* 💓 HEARTS START WHEN PAGE OPENS */
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "💖";
+
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (Math.random() * 20 + 20) + "px";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 6000);
+    }
+
+    setInterval(createHeart, 400);
   </script>
 
 </body>
