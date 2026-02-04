@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>💖 Will You Be My Valentine?</title>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -9,6 +10,11 @@
       margin-top: 100px;
       background: #ffe6ea;
       overflow: hidden;
+    }
+
+    .buttons {
+      position: relative;
+      z-index: 5;
     }
 
     button {
@@ -20,23 +26,43 @@
       cursor: pointer;
     }
 
-    #yesBtn { background: #ff4d6d; color: white; }
-    #noBtn { background: gray; color: white; position: absolute; }
+    #yesBtn {
+      background: #ff4d6d;
+      color: white;
+    }
+
+    #noBtn {
+      background: gray;
+      color: white;
+      position: absolute;
+    }
 
     #coupon {
       display: none;
       margin-top: 30px;
       font-size: 20px;
       color: #d1004c;
+      z-index: 5;
+      position: relative;
     }
 
-    /* 💌 Personal message */
+    #openNoteBtn {
+      display: none;
+      background: #ff85a2;
+      color: white;
+      margin-top: 20px;
+      z-index: 5;
+      position: relative;
+    }
+
     #loveNote {
       display: none;
-      margin-top: 20px;
+      margin-top: 25px;
       font-size: 22px;
       color: #b30047;
       font-style: italic;
+      z-index: 5;
+      position: relative;
     }
 
     /* 💖 Floating hearts */
@@ -46,6 +72,7 @@
       font-size: 24px;
       animation: floatUp 6s linear forwards;
       pointer-events: none;
+      z-index: 1;
     }
 
     @keyframes floatUp {
@@ -59,12 +86,14 @@
 
   <h1 id="question">💖 Will you be my forever Valentine? 💖</h1>
 
-  <button id="yesBtn" onclick="sayYes()">Yes 💕</button>
-  <button id="noBtn" onmouseover="moveNo()">No 😜</button>
+  <div class="buttons">
+    <button id="yesBtn" onclick="sayYes()">Yes 💕</button>
+    <button id="noBtn" onmouseover="moveNo()">No 😜</button>
+  </div>
 
   <div id="coupon">
     🎁 <strong>Myntra Gift Coupon</strong><br><br>
-    Coupon Code: <strong>CHECK YOUR MAIL</strong><br>
+    Coupon Code: <strong>LOVE2026</strong><br>
     Valid till: 14 Feb ❤️<br><br>
     🍽️ Candle Light Dinner date with me 💕 <br>
 	💋 And everything of me once you finished your fast 😉
@@ -73,7 +102,7 @@
   <button id="openNoteBtn" onclick="openLoveNote()">
     💌 Open my love note
   </button>
-  <!-- 💌 Personal love note -->
+
   <div id="loveNote">
     “You're my everything Mama ❤️  
     I really pray everyday that even in my worst dreams I shouldn't imagine a life without you. So don't say go away anymore.”
@@ -85,22 +114,28 @@
   </audio>
 
   <script>
+    // ✅ FORCE HIDE on load (important fix)
+    document.getElementById("coupon").style.display = "none";
+    document.getElementById("openNoteBtn").style.display = "none";
+    document.getElementById("loveNote").style.display = "none";
+
     function sayYes() {
       document.getElementById("question").style.display = "none";
       document.getElementById("yesBtn").style.display = "none";
       document.getElementById("noBtn").style.display = "none";
+
       document.getElementById("coupon").style.display = "block";
+      document.getElementById("openNoteBtn").style.display = "inline-block";
 
       document.getElementById("bgMusic").play();
+    }
 
-      // 💌 Show love note after 1 second
-      setTimeout(() => {
-        document.getElementById("loveNote").style.display = "block";
-      }, 1000);
+    function openLoveNote() {
+      document.getElementById("openNoteBtn").style.display = "none";
+      document.getElementById("loveNote").style.display = "block";
     }
 
     function moveNo() {
-      // 😈 Secret message
       alert("Nice try 😉 You’re already mine ❤️");
 
       const btn = document.getElementById("noBtn");
@@ -108,7 +143,7 @@
       btn.style.top = Math.random() * 300 + "px";
     }
 
-    // 💓 Hearts on page open
+    /* 💓 Hearts on page open */
     function createHeart() {
       const heart = document.createElement("div");
       heart.className = "heart";
